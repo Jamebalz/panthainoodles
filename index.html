@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PanThai Noodles — Auckland's Original Thai Noodles</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+@font-face{
+  font-family:'JSChanok';
+  src:url('JS-Chanok-Normal.ttf') format('truetype');
+  font-weight:normal;font-style:normal;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#F5E6C8;
+  --cream2:#EDD9A3;
+  --dark:#1A0A00;
+  --red:#8B1A1A;
+  --red2:#B22222;
+  --gold:#C8960C;
+  --gold2:#E8B000;
+  --text:#2C1500;
+  --dim:#6B3A1F;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* ─── NAV ─────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:96px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;
+  background:transparent;
+  transition:background .3s;
+}
+nav.scrolled{
+  background:rgba(26,10,0,0.92);
+  backdrop-filter:blur(12px);
+}
+.nlogo{cursor:pointer}
+.nlogo img{
+  height:88px;
+  border-radius:50%;
+  display:block;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+}
+/* logo on non-home pages */
+.nlogo-nav img{height:88px}
+/* Home button — same size as FIND A TABLE */
+.nav-home-btn{
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  background:transparent;color:rgba(245,230,200,0.9);
+  border:1.5px solid rgba(245,230,200,0.45);
+  padding:15px 36px;cursor:pointer;font-weight:700;
+  display:none;
+  transition:background .2s,color .2s,border-color .2s;
+  text-shadow:0 1px 4px rgba(0,0,0,0.6);
+}
+.nav-home-btn:hover{background:rgba(245,230,200,0.12);color:#fff;border-color:rgba(245,230,200,0.8)}
+@media(max-width:600px){.nav-home-btn{display:none!important}}
+.nlinks{display:flex;gap:3rem;align-items:center}
+.nlinks a{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(245,230,200,0.9);text-decoration:none;cursor:pointer;transition:color .2s;
+  text-shadow:0 1px 4px rgba(0,0,0,0.6);
+}
+.nlinks a:hover,.nlinks a.active{color:#fff}
+.ncta{
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--red);color:#fff;border:none;padding:15px 36px;cursor:pointer;
+  transition:background .2s;font-weight:700;
+  box-shadow:0 2px 12px rgba(139,26,26,0.5);
+}
+.ncta:hover{background:var(--red2)}
+
+/* ─── PAGES ───────────────────────────── */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+#home{position:relative}
+
+/* ─── HERO ────────────────────────────── */
+.hero{
+  position:relative;
+  height:100vh;
+  display:flex;align-items:center;overflow:visible;
+  background:#1A0A00;
+}
+.hero-bg{
+  position:absolute;inset:0;overflow:hidden;
+}
+.hero-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:60% center;
+  filter:brightness(0.75) saturate(1.15);
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to right,
+      rgba(20,6,0,0.92) 0%,
+      rgba(20,6,0,0.75) 28%,
+      rgba(20,6,0,0.35) 55%,
+      rgba(20,6,0,0.05) 80%,
+      transparent 100%
+    ),
+    linear-gradient(to bottom,
+      rgba(20,6,0,0.35) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(20,6,0,0.5) 100%
+    );
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:min(640px, 55vw);
+  padding:clamp(5rem,10vh,9rem) 3rem clamp(3rem,5vh,5rem) clamp(7rem,10vw,11rem);
+}
+.hero-eyebrow{
+  font-family:'Playfair Display',serif;font-size:clamp(.85rem,1.6vw,1.25rem);
+  font-weight:700;font-style:italic;letter-spacing:.08em;
+  color:var(--gold2);margin-bottom:.15rem;
+  text-align:center;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;font-size:clamp(3rem,7.5vw,7.5rem);
+  font-weight:900;line-height:.93;color:var(--cream);
+  text-transform:uppercase;margin-bottom:0;
+  letter-spacing:-.02em;
+}
+.hero-title .line-noodles{color:var(--gold2)}
+.hero-redline{
+  width:clamp(200px,24vw,340px);
+  height:36px;
+  overflow:hidden;
+  position:relative;
+  margin-bottom:clamp(.8rem,1.5vh,1.2rem);
+}
+.hero-redline img{
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:100%;
+  height:auto;
+}
+.hero-tagline{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(.82rem,1.2vw,1.1rem);color:rgba(245,230,200,0.82);
+  margin-bottom:clamp(1.5rem,3vh,2.5rem);line-height:1.75;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-loc{
+  display:flex;align-items:center;gap:.6rem;
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:.15em;text-transform:uppercase;
+  background:var(--red);color:#fff;border:none;
+  padding:16px 32px;cursor:pointer;
+  transition:background .2s,transform .15s;font-weight:700;
+  border-radius:4px;
+  box-shadow:0 4px 16px rgba(139,26,26,0.45);
+}
+.btn-loc svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5}
+.btn-loc:hover{background:var(--red2);transform:translateY(-2px)}
+/* logo inside hero */
+.hero-logo{
+  cursor:pointer;margin-bottom:.6rem;display:inline-block;
+}
+.hero-logo img{
+  height:clamp(130px,16vw,200px);border-radius:50%;display:block;
+  filter:drop-shadow(0 4px 16px rgba(0,0,0,0.55));
+}
+
+/* yak left — fixed กับ viewport ไม่ขยับ */
+.hero-yak-left{
+  position:fixed;
+  bottom:-68px;
+  left:-120px;
+  z-index:20;
+  width:clamp(280px,28vw,400px);
+  pointer-events:none;
+  transition:opacity .3s;
+}
+.hero-yak-left.hidden{opacity:0;pointer-events:none;}
+/* Panthai script top-right */
+.hero-script{
+  position:absolute;top:2.5rem;right:4%;z-index:3;
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:2.2rem;color:rgba(245,230,200,0.5);
+  pointer-events:none;
+}
+
+/* ─── DIVIDER ─────────────────────────── */
+.divider{
+  display:flex;align-items:center;gap:1rem;
+  padding:2rem 4rem;
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--dim);
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gold);opacity:.35}
+
+/* ─── SIGNATURE BOWLS ─────────────────── */
+.sig-section{padding:3rem 4rem 4rem;background:var(--cream)}
+.sig-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem 2rem;
+  margin-top:2rem;
+}
+.sig-card.hidden-card{display:none}
+.sig-card.hidden-card.revealed{display:block}
+.sig-more-wrap{text-align:center;margin-top:2rem}
+.btn-sig-more{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;background:transparent;border:1.5px solid var(--text);color:var(--text);
+  padding:13px 36px;cursor:pointer;transition:all .2s;
+}
+.btn-sig-more:hover{background:var(--text);color:var(--cream)}
+.sig-card{cursor:pointer;position:relative}
+.sig-card-hero .sig-img-wrap{
+  border-color:var(--gold2);
+  box-shadow:0 0 0 3px rgba(232,176,0,0.25),0 4px 20px rgba(232,176,0,0.2);
+}
+.sig-hero-badge{
+  position:absolute;top:-8px;left:50%;transform:translateX(-50%);
+  background:var(--gold2);color:var(--dark);
+  font-family:'Cinzel',serif;font-size:9px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:4px 12px;white-space:nowrap;z-index:2;
+  border-radius:2px;
+}
+.sig-name-en{
+  font-size:.78rem;color:var(--dim);font-family:'Lato',sans-serif;
+  font-weight:400;letter-spacing:0;text-transform:none;
+}
+.sig-img-wrap{
+  width:100%;aspect-ratio:1;overflow:hidden;border-radius:50%;
+  border:3px solid var(--gold);
+  box-shadow:0 6px 24px rgba(0,0,0,0.15);
+  margin-bottom:1rem;
+}
+.sig-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.sig-card:hover .sig-img-wrap img{transform:scale(1.06)}
+.sig-name{
+  font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+  color:var(--red);margin-bottom:.3rem;text-align:center;
+}
+.sig-desc{font-size:.8rem;color:var(--dim);text-align:center;line-height:1.5}
+.sig-badge{font-size:.7rem;color:var(--red2);margin-left:.3rem}
+
+/* ─── OUR STORY + WHY PANTHAI ─────────── */
+.story-section{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  background:var(--cream2);
+  min-height:480px;
+  align-items:stretch;
+}
+.story-left{
+  padding:4rem;display:flex;flex-direction:column;justify-content:center;
+}
+.story-center{
+  overflow:hidden;position:relative;
+}
+.story-center img{
+  width:100%;height:100%;object-fit:cover;object-position:center center;
+  display:block;
+}
+.story-eyebrow{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--red);margin-bottom:1rem;
+}
+.story-title{
+  font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:700;line-height:1.2;color:var(--text);margin-bottom:1.5rem;
+}
+.story-body{font-size:.95rem;line-height:1.8;color:var(--dim);margin-bottom:2rem}
+.btn-story{
+  display:block;font-family:'Cinzel',serif;font-size:12px;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  background:var(--text);color:var(--cream);border:none;padding:17px 0;
+  cursor:pointer;transition:background .2s;width:100%;text-align:center;
+}
+.btn-story:hover{background:var(--red)}
+
+.story-right{
+  background:var(--dark);padding:4rem;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.story-yak{
+  position:absolute;right:-415px;bottom:-90px;z-index:3;
+  height:clamp(380px,50vw,660px);width:auto;
+  pointer-events:none;
+}
+.story-right .why-title,
+.story-right .why-list{position:relative;z-index:4}
+.why-title{
+  font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;
+  color:var(--cream2);margin-bottom:2rem;
+}
+.why-list{display:flex;flex-direction:column;gap:1.5rem}
+.why-item{display:flex;align-items:flex-start;gap:1rem}
+.why-icon{
+  width:52px;height:52px;min-width:52px;border-radius:50%;
+  background:rgba(200,150,12,0.22);border:1.5px solid rgba(232,176,0,0.55);
+  display:flex;align-items:center;justify-content:center;
+}
+.why-icon svg{width:24px;height:24px;stroke:var(--gold2);fill:none;stroke-width:1.8}
+.why-text h4{font-size:.9rem;font-weight:700;color:var(--cream);margin-bottom:.2rem}
+.why-text p{font-size:.8rem;color:rgba(245,230,200,0.6);line-height:1.5}
+
+/* ─── GOOD FOOD GOOD MOOD ─────────────── */
+.mood-section{
+  position:relative;overflow:hidden;
+  background:var(--cream);
+  padding:0;
+}
+.mood-inner{
+  display:grid;grid-template-columns:1fr 1.1fr 1fr;min-height:460px;
+}
+.mood-left{
+  padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:2;
+  background:var(--cream2);
+}
+.mood-title{
+  font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:900;line-height:1.1;color:var(--text);text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.mood-sub{font-size:.95rem;color:var(--dim);margin-bottom:2rem;line-height:1.6}
+
+/* center illustration column */
+.mood-center{
+  background:var(--cream2);
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;
+}
+.mood-center img{
+  width:164%;max-width:none;object-fit:contain;object-position:bottom center;
+  display:block;margin-bottom:-4px;
+}
+
+/* right locations column */
+.mood-right{
+  background:var(--cream2);
+  padding:3.5rem 2.5rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.mood-locations{display:flex;flex-direction:column;gap:2.2rem}
+.mood-loc{display:flex;align-items:flex-start;gap:1rem}
+.mood-loc-pin{
+  width:40px;height:40px;min-width:40px;border-radius:50%;
+  background:var(--red);display:flex;align-items:center;justify-content:center;margin-top:.15rem;
+  box-shadow:0 2px 8px rgba(139,26,26,0.35);
+}
+.mood-loc-pin svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5}
+.mood-loc-name{
+  font-family:'Cinzel',serif;font-size:1rem;font-weight:700;
+  color:var(--text);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem;
+}
+.mood-loc-addr{font-size:.82rem;color:var(--dim);line-height:1.6}
+.mood-loc-link{
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;color:var(--red);
+  text-decoration:none;text-transform:uppercase;cursor:pointer;
+  display:inline-block;margin-top:.35rem;font-weight:700;
+}
+.mood-loc-link:hover{color:var(--red2)}
+
+/* ─── OUR STORY PAGE ─────────────────── */
+.story-hero{
+  position:relative;height:55vh;min-height:360px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--dark);
+}
+.story-hero-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 40%;
+  filter:brightness(0.45) saturate(1.1);
+}
+.story-hero-content{
+  position:relative;z-index:2;text-align:center;padding:2rem;
+}
+.story-hero-eye{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--gold2);margin-bottom:.8rem;
+}
+.story-hero-title{
+  font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5.5rem);
+  font-weight:900;color:var(--cream);line-height:1;text-transform:uppercase;
+}
+
+.story-page-body{max-width:820px;margin:0 auto;padding:5rem 2rem;}
+.story-chapter{margin-bottom:4rem;}
+.story-chapter-num{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.5rem;
+}
+.story-chapter-title{
+  font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);
+  font-weight:700;color:var(--text);margin-bottom:1.2rem;line-height:1.2;
+}
+.story-chapter-text{
+  font-size:1rem;line-height:1.95;color:var(--dim);
+}
+.story-chapter-text p{margin-bottom:1.2rem;}
+.story-divider{
+  display:flex;align-items:center;gap:1rem;margin:3rem 0;
+}
+.story-divider::before,.story-divider::after{content:'';flex:1;height:1px;background:var(--gold);opacity:.3}
+.story-divider span{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1.2rem}
+
+.story-img-block{
+  width:100%;aspect-ratio:16/9;overflow:hidden;margin:2.5rem 0;
+  border-radius:2px;
+}
+.story-img-block img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+
+.story-quote{
+  border-left:3px solid var(--gold);padding:1.2rem 2rem;margin:2.5rem 0;
+  background:rgba(200,150,12,0.06);
+}
+.story-quote p{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.15rem;color:var(--text);line-height:1.7;
+}
+.story-back{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--red);cursor:pointer;border:none;background:none;
+  padding:0;margin-bottom:2rem;
+}
+.story-back:hover{color:var(--red2)}
+
+/* ─── LOCATION PAGES ──────────────────── */
+.loc-hero{
+  position:relative;height:60vh;min-height:420px;overflow:hidden;
+  display:flex;align-items:flex-end;
+}
+.loc-hero-imgs{position:absolute;inset:0;display:grid}
+.loc-hero-imgs img{width:100%;height:100%;object-fit:cover}
+.loc-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(26,10,0,0.9) 0%, rgba(26,10,0,0.3) 60%, transparent 100%);
+}
+.loc-hero-content{position:relative;z-index:2;padding:2.5rem 4rem;width:100%}
+.loc-branch-tag{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold2);margin-bottom:.5rem;
+}
+.loc-name{
+  font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:900;color:var(--cream);text-transform:uppercase;line-height:1;
+  margin-bottom:.75rem;
+}
+.loc-hours{font-size:.85rem;color:rgba(245,230,200,0.7);letter-spacing:.05em}
+
+.loc-actions{background:var(--cream);padding:3rem 4rem}
+.loc-actions-eye{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:1.5rem;
+}
+.loc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.loc-card{
+  border:1px solid rgba(139,26,26,0.15);padding:2rem;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+  background:#fff;
+}
+.loc-card:hover{
+  border-color:var(--red);
+  box-shadow:0 8px 32px rgba(139,26,26,0.12);
+  transform:translateY(-4px);
+}
+.loc-card-ico{
+  width:48px;height:48px;margin-bottom:1.2rem;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(139,26,26,0.06);border-radius:50%;
+}
+.loc-card-ico svg{width:22px;height:22px;stroke:var(--red);fill:none;stroke-width:1.8}
+.loc-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.4rem}
+.loc-card-desc{font-size:.82rem;color:var(--dim);line-height:1.6;margin-bottom:1.2rem}
+.loc-card-arrow{
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--red);font-weight:700;
+}
+
+/* Gallery strip for location pages */
+.loc-gallery{
+  display:grid;gap:4px;padding:0;background:var(--dark);
+}
+.loc-gallery.g4{grid-template-columns:repeat(4,1fr)}
+.loc-gallery.g5{grid-template-columns:3fr 1fr 1fr 1fr 1fr}
+.loc-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:opacity .2s}
+.loc-gallery img:hover{opacity:.85}
+
+.loc-map{background:var(--cream2);padding:3rem 4rem}
+.loc-map-eye{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:.5rem}
+.loc-map-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
+.loc-map-sub{font-size:.85rem;color:var(--dim);margin-bottom:1.5rem}
+.loc-map iframe{width:100%;height:380px;border:none;display:block}
+
+/* ─── DISH LIGHTBOX ───────────────────── */
+.lightbox{
+  position:fixed;inset:0;z-index:600;
+  background:rgba(10,4,0,0.88);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+  padding:1.5rem;
+}
+.lightbox.open{opacity:1;pointer-events:all}
+.lightbox-inner{
+  position:relative;
+  max-width:560px;width:100%;
+  background:var(--cream);
+  overflow:hidden;
+  transform:scale(.94);transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.lightbox.open .lightbox-inner{transform:scale(1)}
+.lightbox-img{
+  width:100%;aspect-ratio:1;object-fit:cover;display:block;
+}
+.lightbox-body{
+  padding:1.5rem 2rem 2rem;
+}
+.lightbox-name{
+  font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
+  color:var(--text);margin-bottom:.4rem;
+}
+.lightbox-desc{
+  font-size:.88rem;color:var(--dim);line-height:1.65;margin-bottom:1.5rem;
+}
+.lightbox-book{
+  display:block;width:100%;
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;background:var(--red);color:#fff;border:none;
+  padding:16px;cursor:pointer;transition:background .2s;
+}
+.lightbox-book:hover{background:var(--red2)}
+.lightbox-close{
+  position:absolute;top:1rem;right:1rem;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(0,0,0,0.45);border:none;color:#fff;
+  font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s;z-index:2;
+}
+.lightbox-close:hover{background:rgba(0,0,0,0.7)}
+
+/* ─── MENU SHEET ──────────────────────── */
+.backdrop{
+  position:fixed;inset:0;z-index:500;background:rgba(26,10,0,0.7);
+  display:flex;justify-content:flex-end;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.backdrop.open{opacity:1;pointer-events:all}
+.msheet{
+  background:var(--cream);width:min(480px,100vw);height:100%;
+  overflow-y:auto;padding:2rem;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.backdrop.open .msheet{transform:translateX(0)}
+.xbtn{
+  position:absolute;top:1.2rem;right:1.2rem;
+  background:none;border:none;font-size:1.3rem;cursor:pointer;
+  color:var(--dim);line-height:1;
+}
+.mshttitle{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--text);margin-top:.5rem}
+.mshtsub{font-size:.82rem;color:var(--dim);margin-bottom:2rem;letter-spacing:.05em}
+.mcat{
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--red);border-bottom:1px solid rgba(139,26,26,0.2);
+  padding-bottom:.5rem;margin:1.5rem 0 .75rem;
+}
+.mitem{display:flex;justify-content:space-between;align-items:flex-start;padding:.5rem 0;gap:1rem}
+.mname{font-size:.92rem;font-weight:700;color:var(--text)}
+.mdesc{font-size:.78rem;color:var(--dim);margin-top:.15rem;line-height:1.4}
+.mprice{font-family:'Cinzel',serif;font-size:.9rem;font-weight:600;color:var(--red);white-space:nowrap}
+
+/* ─── BOOKING SHEET ───────────────────── */
+.bkdrop-c{
+  position:fixed;inset:0;z-index:500;background:rgba(26,10,0,0.7);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.bkdrop-c.open{opacity:1;pointer-events:all}
+.bsheet{
+  background:var(--cream);width:min(440px,94vw);padding:2.5rem;position:relative;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(20px);transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.bkdrop-c.open .bsheet{transform:translateY(0)}
+.beye{
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--red);margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem;
+}
+.btitle{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--text);margin-bottom:1.5rem}
+.bfield{
+  width:100%;border:1px solid rgba(139,26,26,0.25);background:#fff;
+  color:var(--text);font-family:'Lato',sans-serif;font-size:.9rem;
+  padding:11px 14px;margin-bottom:12px;outline:none;
+  transition:border-color .2s;
+}
+.bfield:focus{border-color:var(--red)}
+.bsub{
+  width:100%;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:700;background:var(--red);color:var(--cream);border:none;
+  padding:14px;cursor:pointer;transition:background .2s;margin-top:.5rem;
+}
+.bsub:hover{background:var(--red2)}
+.bsub:disabled{opacity:.6;cursor:default}
+.bnote{font-size:.78rem;color:var(--dim);margin-top:.75rem;text-align:center}
+.brsheet{background:var(--cream);width:min(360px,94vw);padding:2.5rem;position:relative}
+.brbtns{display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem}
+.brbtn{
+  font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:700;background:transparent;border:2px solid var(--red);color:var(--red);
+  padding:14px;cursor:pointer;transition:all .2s;
+}
+.brbtn:hover{background:var(--red);color:var(--cream)}
+
+/* ─── PAGE BREADCRUMB ─────────────────── */
+.page-breadcrumb{
+  background:var(--dark);
+  padding:.65rem 3rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.page-breadcrumb-home{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold2);cursor:pointer;border:none;background:none;
+  padding:0;transition:color .2s;
+}
+.page-breadcrumb-home:hover{color:#fff}
+.page-breadcrumb-home svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5}
+.page-breadcrumb-sep{color:rgba(255,255,255,0.25);font-size:.75rem;margin:0 .2rem}
+.page-breadcrumb-cur{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
+@media(max-width:600px){.page-breadcrumb{padding:.65rem 1.2rem}}
+
+/* ─── LOC CARD PRIMARY (Reserve) ─────── */
+.loc-card-primary{
+  border:2px solid var(--gold) !important;
+  background:rgba(200,150,12,0.07) !important;
+}
+.loc-card-primary .loc-card-title{color:var(--gold2) !important}
+.loc-card-primary .loc-card-arrow{color:var(--gold2) !important}
+
+/* ─── BRAND ICON BADGE — same container as loc-card-ico ── */
+.loc-card-ico-brand{
+  width:48px;height:48px;margin-bottom:1.2rem;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(139,26,26,0.06);border-radius:50%;
+}
+.brand-badge{
+  font-family:'Lato',sans-serif;font-weight:900;font-size:17px;
+  letter-spacing:-.02em;color:var(--text);
+}
+.brand-ordermeal{font-size:11px;letter-spacing:.01em}
+
+/* ─── FOOTER ──────────────────────────── */
+.site-footer{
+  background:var(--dark);
+  padding:3rem 4rem;
+  display:grid;grid-template-columns:1.4fr 1.2fr auto;
+  gap:3rem;align-items:center;
+}
+.footer-col-title{
+  font-family:'Cinzel',serif;font-size:13px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:#fff;margin-bottom:1.2rem;
+}
+.footer-contact-item{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.85rem;color:rgba(255,255,255,0.72);line-height:1.55;
+  margin-bottom:.75rem;
+}
+.footer-contact-item svg{
+  width:15px;height:15px;min-width:15px;stroke:rgba(255,255,255,0.5);
+  fill:none;stroke-width:2;margin-top:.15rem;
+}
+.footer-links-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.55rem 2rem;
+}
+.footer-link{
+  font-size:.85rem;color:rgba(255,255,255,0.72);cursor:pointer;
+  text-decoration:none;transition:color .2s;
+  font-family:'Lato',sans-serif;
+}
+.footer-link:hover{color:#fff}
+.footer-btns{
+  display:flex;flex-direction:column;gap:.75rem;min-width:180px;
+}
+.footer-btn{
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;font-weight:700;padding:14px 20px;
+  cursor:pointer;border:none;transition:opacity .2s;text-align:center;
+}
+.footer-btn:hover{opacity:.85}
+.footer-btn-reserve{background:#2E4A6A;color:#fff}
+.footer-btn-order{background:#C85A1A;color:#fff}
+.footer-divider{
+  background:var(--dark);padding:.75rem 4rem 1.5rem;
+  font-size:.72rem;color:rgba(255,255,255,0.35);
+  font-family:'Lato',sans-serif;letter-spacing:.05em;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* ─── HAMBURGER MENU ──────────────────── */
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:40px;background:none;border:none;cursor:pointer;
+  padding:4px;z-index:210;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;background:var(--cream);
+  border-radius:2px;transition:all .3s;transform-origin:center;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{
+  position:fixed;top:0;right:0;bottom:0;z-index:205;
+  width:280px;background:var(--dark);
+  padding:5rem 2rem 2rem;
+  display:flex;flex-direction:column;gap:0;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  border-left:1px solid rgba(200,150,12,0.15);
+}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(245,230,200,0.85);text-decoration:none;cursor:pointer;
+  padding:1.1rem 0;border-bottom:1px solid rgba(255,255,255,0.07);
+  transition:color .2s;
+}
+.mobile-menu a:hover{color:var(--gold2)}
+.mobile-menu-cta{
+  margin-top:2rem;
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--red);color:#fff;border:none;padding:15px;
+  cursor:pointer;font-weight:700;transition:background .2s;
+}
+.mobile-menu-cta:hover{background:var(--red2)}
+.mobile-menu-backdrop{
+  position:fixed;inset:0;z-index:204;background:rgba(0,0,0,0.5);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.mobile-menu-backdrop.open{opacity:1;pointer-events:all}
+
+/* ─── RESPONSIVE ──────────────────────── */
+@media(max-width:1100px){
+  .hero-content{max-width:60vw}
+}
+/* ── TABLET / iPad (768–1024px) → hamburger mode ─── */
+@media(max-width:1024px){
+  nav{height:72px;padding:0 1.5rem}
+  .nlogo img{height:54px}
+  .nlinks{display:none}
+  .ncta{display:none}
+  .hamburger{display:flex}
+  /* Home button stays visible in nav — smaller size */
+  .nav-home-btn{padding:10px 20px;font-size:10px;letter-spacing:.15em}
+}
+@media(max-width:900px){
+  /* NAV — already handled by 1024px block */
+  nav{padding:0 1.5rem;height:72px}
+  .nlogo img{height:54px}
+  /* HERO */
+  .hero-content{max-width:100%;padding:7rem 2rem 3rem 2rem}
+  .hero-img{object-position:70% center}
+  .hero-yak-left{width:160px}
+  /* DIVIDER */
+  .divider{padding:1.5rem 1.5rem}
+  /* SIG BOWLS */
+  .sig-section{padding:2rem 1.5rem}
+  .sig-grid{grid-template-columns:repeat(2,1fr)}
+  /* OUR STORY — รูปอยู่บน, ข้อความ 2 คอล ด้านล่าง */
+  .story-section{grid-template-columns:1fr 1fr;grid-template-rows:280px auto}
+  .story-center{grid-column:1/3;grid-row:1;height:280px}
+  .story-left{grid-column:1;grid-row:2;padding:2rem 1.5rem}
+  .story-right{grid-column:2;grid-row:2;padding:2rem 1.2rem}
+  .story-title{font-size:1.5rem}
+  .story-body{font-size:.82rem}
+  .why-title{font-size:1rem}
+  .why-text h4{font-size:.8rem}
+  .why-text p{font-size:.72rem}
+  .why-icon{width:36px;height:36px;min-width:36px}
+  .story-yak{display:none}
+  /* GOOD FOOD — ข้อความบน, รูปกลาง, ที่อยู่ล่าง */
+  .mood-inner{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+  .mood-left{grid-column:1;grid-row:1;padding:2rem 1.5rem}
+  .mood-center{grid-column:1/3;grid-row:2;height:260px}
+  .mood-right{grid-column:2;grid-row:1;padding:2rem 1.2rem}
+  .mood-title{font-size:1.8rem}
+  .mood-sub{font-size:.82rem;margin-bottom:1rem}
+  .mood-loc-name{font-size:.82rem}
+  .mood-loc-addr{font-size:.74rem}
+  .mood-loc-pin{width:30px;height:30px;min-width:30px}
+  /* LOCATION */
+  .loc-hero{min-height:360px}
+  .loc-actions{padding:2rem 1.5rem}
+  .loc-grid{grid-template-columns:repeat(2,1fr)!important}
+  .loc-map{padding:2rem 1.5rem}
+  .loc-gallery.g4,.loc-gallery.g5{grid-template-columns:repeat(2,1fr)}
+  /* FOOTER */
+  .site-footer{grid-template-columns:1fr;gap:2rem;padding:2.5rem 1.5rem}
+  .footer-btns{flex-direction:row;gap:.75rem}
+  .footer-btn{flex:1}
+  .footer-divider{padding:.75rem 1.5rem 1.5rem}
+  /* STORY PAGE */
+  .story-page-body{padding:3rem 1.5rem}
+}
+@media(max-width:600px){
+  /* NAV — hamburger mode */
+  nav{height:62px;padding:0 1rem}
+  .nlogo img{height:48px}
+  .nlinks{display:none}
+  .ncta{display:none}
+  .hamburger{display:flex}
+  /* HERO */
+  .hero-yak-left{width:110px}
+  .hero-content{padding:6rem 1.5rem 2.5rem 1.5rem}
+  .hero-title{font-size:clamp(2.6rem,11vw,4rem)}
+  .hero-btns{flex-direction:column;gap:.75rem}
+  .btn-loc{justify-content:center;padding:14px 24px}
+  /* SIG */
+  .sig-section{padding:1.5rem 1rem}
+  .sig-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  /* OUR STORY — สแตก 1 คอลัมน์ รูปบน */
+  .story-section{grid-template-columns:1fr;grid-template-rows:220px auto auto}
+  .story-center{grid-column:1;grid-row:1;height:220px}
+  .story-left{grid-column:1;grid-row:2;padding:2rem 1.5rem}
+  .story-right{grid-column:1;grid-row:3;padding:2rem 1.5rem}
+  /* GOOD FOOD — สแตก ข้อความบน รูปกลาง ที่อยู่ล่าง */
+  .mood-inner{grid-template-columns:1fr;grid-template-rows:auto auto auto}
+  .mood-left{grid-column:1;grid-row:1;padding:2rem 1.5rem}
+  .mood-right{grid-column:1;grid-row:3;padding:2rem 1.5rem}
+  .mood-center{grid-column:1;grid-row:2;height:480px}
+  .mood-title{font-size:2rem}
+  .mood-center img{width:170%}
+  .btn-story{font-size:11px;padding:14px 0}
+  /* LOCATION */
+  .loc-hero{min-height:300px}
+  .loc-hero-content{padding:1.5rem}
+  .loc-name{font-size:clamp(1.8rem,8vw,3rem)}
+  .loc-hours{font-size:.75rem}
+  .loc-grid{grid-template-columns:1fr!important}
+  .loc-gallery.g4,.loc-gallery.g5{grid-template-columns:1fr 1fr}
+  /* LIGHTBOX */
+  .lightbox-inner{max-width:95vw}
+  .lightbox-body{padding:1rem 1.2rem 1.5rem}
+  .lightbox-name{font-size:1.2rem}
+  /* FOOTER */
+  .site-footer{padding:2rem 1.2rem;gap:1.5rem}
+  .footer-btns{flex-direction:column}
+  .footer-btn{padding:13px}
+  /* STORY PAGE */
+  .story-hero-title{font-size:clamp(2rem,9vw,3.5rem)}
+  .story-page-body{padding:2.5rem 1.2rem}
+  .story-quote{padding:1rem 1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <!-- logo แสดงเฉพาะตอนไม่ได้อยู่ home -->
+  <div class="nlogo nlogo-nav" style="display:none">
+    <img src="logo.png" alt="PanThai Noodles">
+  </div>
+  <button class="nav-home-btn" id="navHomeBtn" onclick="showPage('home')">Home</button>
+  <div style="flex:1"></div>
+  <div class="nlinks">
+    <a data-nav="home" class="active" onclick="navStory()">Our Story</a>
+    <a onclick="navMenu()">Menu</a>
+    <a onclick="openLocSelect()">Locations</a>
+  </div>
+  <button class="ncta" onclick="openBranchSelect()">Find a Table</button>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="closeMobileMenu();showPage('home')">Home</a>
+  <a onclick="closeMobileMenu();navStory()">Our Story</a>
+  <a onclick="closeMobileMenu();navMenu()">Menu</a>
+  <a onclick="closeMobileMenu();openLocSelect()">Locations</a>
+  <button class="mobile-menu-cta" onclick="closeMobileMenu();openBranchSelect()">Find a Table</button>
+</div>
+
+<!-- ══════════════ HOME PAGE ══════════════ -->
+<div id="home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg">
+      <img class="hero-img" src="P1.jpg" alt="Pan Thai Boat Noodles">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-yak-left">
+      <img src="4.png" alt="" style="width:100%">
+    </div>
+    <div class="hero-content">
+      <div class="hero-logo" onclick="showPage('home')">
+        <img src="logo.png" alt="PanThai Noodles">
+      </div>
+      <div class="hero-eyebrow">Auckland's</div>
+      <h1 class="hero-title">
+        Original<br>
+        Thai<br>
+        <span class="line-noodles">Noodles</span>
+      </h1>
+      <div class="hero-redline"><img src="logo 1.png" alt=""></div>
+      <p class="hero-tagline">The recipe that started it all.<br>Unchanged. Uncompromised.</p>
+      <div class="hero-btns">
+        <button class="btn-loc" onclick="showPage('dominion')">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Dominion Rd
+        </button>
+        <button class="btn-loc" onclick="showPage('epsom')">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Epsom
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE BOWLS -->
+  <div class="divider" id="sig">Signature Bowls</div>
+  <section class="sig-section">
+    <div class="sig-grid">
+      <div class="sig-card sig-card-hero" onclick="openDish(this)">
+        <div class="sig-hero-badge">★ ซิกเนเจอร์</div>
+        <div class="sig-img-wrap"><img src="Signature Bowls 1.jpg" alt="Boat Noodles (Signature)"></div>
+        <div class="sig-name">Boat Noodles <span class="sig-name-en">(Signature)</span></div>
+        <div class="sig-desc">Our hero bowl — traditional rich broth,<br>slow-cooked to perfection. <span class="sig-badge">★</span></div>
+      </div>
+      <div class="sig-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="Signature Bowls 2.jpg" alt="Beef Sirloin Noodles"></div>
+        <div class="sig-name">Clear Soup Beef Sirloin</div>
+        <div class="sig-desc">Clear broth with tender rare<br>beef sirloin &amp; fresh herbs.</div>
+      </div>
+      <div class="sig-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="Signature Bowls 3.jpg" alt="Green Curry Noodles"></div>
+        <div class="sig-name">Green Curry Noodles</div>
+        <div class="sig-desc">Thai green curry, creamy<br>and aromatic. <span class="sig-badge">🌶</span></div>
+      </div>
+      <div class="sig-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S10.jpg" alt="Roast Duck Noodles"></div>
+        <div class="sig-name">Roast Duck Noodles</div>
+        <div class="sig-desc">Glazed roast duck in a rich<br>slow-braised aromatic broth.</div>
+      </div>
+      <div class="sig-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S13.jpg" alt="Tom Yum Clear Soup"></div>
+        <div class="sig-name">Tom Yum Clear Soup</div>
+        <div class="sig-desc">Traditional Thai spicy &amp; sour broth.<br>(spicy, peanut) <span class="sig-badge">🌶</span></div>
+      </div>
+      <div class="sig-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S6.jpg" alt="Tom Yum Creamy Noodles"></div>
+        <div class="sig-name">Tom Yum Creamy Noodles</div>
+        <div class="sig-desc">Rich spicy broth, poached chicken<br>&amp; soft-boiled egg (ยางมะตูม). <span class="sig-badge">🌶</span></div>
+      </div>
+      <div class="sig-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S7.jpg" alt="Yen Ta Fo Seafood"></div>
+        <div class="sig-name">Yen Ta Fo Seafood</div>
+        <div class="sig-desc">Squid, prawns, mussels<br>&amp; fish balls in pink broth.</div>
+      </div>
+      <div class="sig-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S8.jpg" alt="Fire Chicken Rice with Peanut Sauce"></div>
+        <div class="sig-name">Fire Chicken Rice</div>
+        <div class="sig-desc">Smoky grilled chicken over rice<br>with our signature peanut sauce. <span class="sig-badge">🌶</span></div>
+      </div>
+      <div class="sig-card hidden-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S9.png" alt="Boat Noodles Shabu Beef"></div>
+        <div class="sig-name">Boat Noodles Shabu Beef</div>
+        <div class="sig-desc">Classic dark broth with<br>silky shabu-style beef slices.</div>
+      </div>
+      <div class="sig-card hidden-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S11.jpg" alt="Deep-Fried Mixed Balls"></div>
+        <div class="sig-name">Deep-Fried Mixed Balls</div>
+        <div class="sig-desc">8 pcs — pork, beef &amp; fish balls,<br>orange fish cake &amp; tofu.</div>
+      </div>
+      <div class="sig-card hidden-card" onclick="openDish(this)">
+        <div class="sig-img-wrap"><img src="S12.jpg" alt="Signature Drinks"></div>
+        <div class="sig-name">Signature Drinks</div>
+        <div class="sig-desc">Iced coffee, green soda,<br>Thai tea &amp; iced milk.</div>
+      </div>
+    </div>
+    <div class="sig-more-wrap">
+      <button class="btn-sig-more" id="sigMoreBtn" onclick="toggleSigMore()">See More ↓</button>
+    </div>
+  </section>
+
+  <!-- OUR STORY + WHY PANTHAI -->
+  <section class="story-section" id="our-story">
+    <div class="story-left">
+      <div class="story-eyebrow">Our Story</div>
+      <h2 class="story-title">A Tradition<br>That Lives On</h2>
+      <p class="story-body">Inspired by Thailand's historic canal boat noodles, Pan Thai brings the original flavours of Bangkok to Auckland.</p>
+      <button class="btn-story" onclick="showPage('story')">Read Our Story</button>
+    </div>
+    <div class="story-center">
+      <img src="our1.png" alt="Thai canal boat noodles — our story">
+    </div>
+    <div class="story-right">
+      <div class="why-title">Why Pan Thai?</div>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div class="why-text">
+            <h4>Authentic Thai Recipe</h4>
+            <p>Rooted in tradition, made with heart.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div class="why-text">
+            <h4>Premium Ingredients</h4>
+            <p>Quality meats and fresh herbs daily.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="why-text">
+            <h4>Made Fresh Daily</h4>
+            <p>No shortcuts. Just real flavours.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <div class="why-text">
+            <h4>Two Convenient Locations</h4>
+            <p>Dominion Rd &amp; Epsom.</p>
+          </div>
+        </div>
+      </div>
+      <img class="story-yak" src="Yak.png" alt="Thai guardian yaksha">
+    </div>
+  </section>
+
+  <!-- GOOD FOOD GOOD MOOD -->
+  <section class="mood-section">
+    <div class="mood-inner">
+      <div class="mood-left">
+        <h2 class="mood-title">Good Food<br>Good Mood</h2>
+        <p class="mood-sub">Book your table and enjoy the original.</p>
+        <button class="btn-story" onclick="openBranchSelect()">Find a Table</button>
+      </div>
+      <div class="mood-center">
+        <img src="good food.png" alt="PanThai boat noodle shop">
+      </div>
+      <div class="mood-right">
+        <div class="mood-locations">
+          <div class="mood-loc">
+            <div class="mood-loc-pin">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </div>
+            <div>
+              <div class="mood-loc-name">Dominion Rd</div>
+              <div class="mood-loc-addr">250 Dominion Rd,<br>Mt Eden, Auckland</div>
+              <span class="mood-loc-link" onclick="showPage('dominion')">View Location →</span>
+            </div>
+          </div>
+          <div class="mood-loc">
+            <div class="mood-loc-pin">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </div>
+            <div>
+              <div class="mood-loc-name">Epsom</div>
+              <div class="mood-loc-addr">451 Manukau Rd,<br>Epsom, Auckland</div>
+              <span class="mood-loc-link" onclick="showPage('epsom')">View Location →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end #home -->
+
+<!-- ══════════════ DOMINION RD PAGE ══════════════ -->
+<div id="dominion" class="page">
+  <div class="loc-hero">
+    <div class="loc-hero-imgs">
+      <img src="P34.jpg" alt="" style="object-position:center 100%">
+    </div>
+    <div class="loc-hero-overlay"></div>
+    <div class="loc-hero-content">
+      <div class="loc-branch-tag">Branch One</div>
+      <div class="loc-name">Dominion Road</div>
+      <div class="loc-hours">Mon – Sun &nbsp;·&nbsp; 11:30 AM – 3:30 PM &nbsp;|&nbsp; Mon, Wed – Sun &nbsp;·&nbsp; 5:00 PM – 9:00 PM</div>
+    </div>
+  </div>
+  <div class="page-breadcrumb">
+    <button class="page-breadcrumb-home" onclick="showPage('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <span class="page-breadcrumb-sep">›</span>
+    <span class="page-breadcrumb-cur">Dominion Road</span>
+  </div>
+
+  <div class="loc-actions">
+    <div class="loc-actions-eye">What would you like to do?</div>
+    <div class="loc-grid">
+      <div class="loc-card loc-card-primary" onclick="openBooking('Dominion Rd')">
+        <div class="loc-card-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="loc-card-title">Reserve a Table</div>
+        <div class="loc-card-desc">Book ahead and arrive without the wait.</div>
+        <div class="loc-card-arrow">Book Now →</div>
+      </div>
+      <div class="loc-card" onclick="window.open('https://www.ubereats.com/store/pan-thai-noodles-epsom/BDB2VxiNVEeaZE8fT3r0Lg?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMlBhbiUyMFRoYWklMjBOb29kbGVzJTIwKERvbWluaW9uKSUyMCVFMCVCOCU4MSVFMCVCOSU4QiVFMCVCOCVBNyVFMCVCOCVBMiVFMCVCOSU4MCVFMCVCOCU5NSVFMCVCOCVCNSVFMCVCOSU4QiVFMCVCOCVBMiVFMCVCOCVBNyUyMCVFMCVCOCU5RSVFMCVCOCVCMSVFMCVCOCU5OSVFMCVCOCU5OCVFMCVCOCVCOCVFMCVCOSU4QyVFMCVCOSU4NCVFMCVCOCU5NyVFMCVCOCVBMiUyMiUyQyUyMnJlZmVyZW5jZSUyMiUzQSUyMkNoSUpiOUtndjVaSERXMFI0VGpNZHZYczQ2YyUyMiUyQyUyMnJlZmVyZW5jZVR5cGUlMjIlM0ElMjJnb29nbGVfcGxhY2VzJTIyJTJDJTIybGF0aXR1ZGUlMjIlM0EtMzYuODgyMjg0OTk5OTk5OTk2JTJDJTIybG9uZ2l0dWRlJTIyJTNBMTc0Ljc0OTI5OTMlN0Q%3D','_blank')">
+        <div class="loc-card-ico-brand"><span class="brand-badge brand-uber">U</span></div>
+        <div class="loc-card-title">Order via Uber Eats</div>
+        <div class="loc-card-desc">Delivered hot and on time.</div>
+        <div class="loc-card-arrow">Order Now →</div>
+      </div>
+      <div class="loc-card" onclick="openMenu('dominion')">
+        <div class="loc-card-ico"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+        <div class="loc-card-title">View Menu</div>
+        <div class="loc-card-desc">Browse every dish, from broth to dessert.</div>
+        <div class="loc-card-arrow">Open Menu →</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="loc-map">
+    <div class="loc-map-eye">Find Us</div>
+    <div class="loc-map-title">428 Dominion Road, Mt Eden, Auckland</div>
+    <div class="loc-map-sub">Open 7 days &nbsp;·&nbsp; 11:30 AM – 9:00 PM &nbsp;·&nbsp; 09 623 0921</div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25530.697524338855!2d174.7163486480713!3d-36.88228097134793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d0d4796bfa0d26f%3A0xa7e3ecf576cc38e1!2zUGFuIFRoYWkgTm9vZGxlcyAoRG9taW5pb24pIOC4geC5i-C4p-C4ouC5gOC4leC4teC5i-C4ouC4pyDguJ7guLHguJnguJjguLjguYzguYTguJfguKI!5e0!3m2!1sth!2snz!4v1780961686928!5m2!1sth!2snz" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+
+<!-- ══════════════ EPSOM PAGE ══════════════ -->
+<div id="epsom" class="page">
+  <div class="loc-hero">
+    <div class="loc-hero-imgs">
+      <img src="P34.jpg" alt="" style="object-position:center 80%">
+    </div>
+    <div class="loc-hero-overlay"></div>
+    <div class="loc-hero-content">
+      <div class="loc-branch-tag">Branch Two</div>
+      <div class="loc-name">Epsom</div>
+      <div class="loc-hours">Mon – Tue, Thu – Sun &nbsp;·&nbsp; 11:30 AM – 3:30 PM &nbsp;|&nbsp; Mon – Tue, Thu – Sun &nbsp;·&nbsp; 5:00 PM – 9:00 PM &nbsp;|&nbsp; Wed Closed</div>
+    </div>
+  </div>
+  <div class="page-breadcrumb">
+    <button class="page-breadcrumb-home" onclick="showPage('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <span class="page-breadcrumb-sep">›</span>
+    <span class="page-breadcrumb-cur">Epsom</span>
+  </div>
+
+  <div class="loc-actions">
+    <div class="loc-actions-eye">What would you like to do?</div>
+    <div class="loc-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="loc-card loc-card-primary" onclick="openBooking('Epsom')">
+        <div class="loc-card-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="loc-card-title">Reserve a Table</div>
+        <div class="loc-card-desc">Book ahead and arrive without the wait.</div>
+        <div class="loc-card-arrow">Book Now →</div>
+      </div>
+      <div class="loc-card" onclick="window.open('https://www.ubereats.com/nz/store/pan-thai-noodles-epsom/BDB2VxiNVEeaZE8fT3r0Lg?diningMode=DELIVERY&sc=SEARCH_SUGGESTION','_blank')">
+        <div class="loc-card-ico-brand"><span class="brand-badge brand-uber">U</span></div>
+        <div class="loc-card-title">Order via Uber Eats</div>
+        <div class="loc-card-desc">Delivered hot and on time.</div>
+        <div class="loc-card-arrow">Order Now →</div>
+      </div>
+      <div class="loc-card" onclick="window.open('https://www.ordermeal.co.nz/pan-thai-noodles-epsom/?omclick=y','_blank')">
+        <div class="loc-card-ico-brand"><span class="brand-badge brand-ordermeal">OM</span></div>
+        <div class="loc-card-title">Order via OrderMeal</div>
+        <div class="loc-card-desc">Order directly from the restaurant.</div>
+        <div class="loc-card-arrow">Order Now →</div>
+      </div>
+      <div class="loc-card" onclick="openMenu('epsom')">
+        <div class="loc-card-ico"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+        <div class="loc-card-title">View Menu</div>
+        <div class="loc-card-desc">Browse every dish, from broth to dessert.</div>
+        <div class="loc-card-arrow">Open Menu →</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="loc-map">
+    <div class="loc-map-eye">Find Us</div>
+    <div class="loc-map-title">583 Manukau Rd, Epsom, Auckland</div>
+    <div class="loc-map-sub">Mon – Tue, Thu – Sun &nbsp;·&nbsp; 11:30 AM – 9:00 PM &nbsp;·&nbsp; Wed Closed &nbsp;·&nbsp; 09 624 0199</div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25524.59115061469!2d174.74017321562496!3d-36.90054069999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d0d4729ad450dbf%3A0x533b5729bd778e7f!2zUGFuIFRoYWkgTm9vZGxlcyAoRXBzb20gKSDguIHguYvguKfguKLguYDguJXguLXguYvguKLguKcg4Lie4Lix4LiZ4LiY4Li44LmM4LmE4LiX4Lii!5e0!3m2!1sth!2snz!4v1780961741196!5m2!1sth!2snz" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+
+<!-- ══════════════ OUR STORY PAGE ══════════════ -->
+<div id="story" class="page">
+  <div class="story-hero">
+    <img class="story-hero-img" src="our1.png" alt="Thai canal boat noodles">
+    <div class="story-hero-content">
+      <div class="story-hero-eye">Pan Thai Noodles</div>
+      <h1 class="story-hero-title">Our Story</h1>
+    </div>
+  </div>
+  <div class="page-breadcrumb">
+    <button class="page-breadcrumb-home" onclick="showPage('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <span class="page-breadcrumb-sep">›</span>
+    <span class="page-breadcrumb-cur">Our Story</span>
+  </div>
+
+  <div class="story-page-body">
+
+    <div class="story-chapter">
+      <div class="story-chapter-num">Chapter One</div>
+      <h2 class="story-chapter-title">Born on the Canals of Bangkok</h2>
+      <div class="story-chapter-text">
+        <p>Long before Pan Thai Noodles found its home in Auckland, the recipe lived in the waterways of Thailand. Boat noodles — or <em>kuay teow reua</em> — were born on the canals of Bangkok, served from wooden boats rocking gently on the Chao Phraya River. Vendors would ladle rich, dark broth into small bowls, passing them up to hungry customers on the riverbanks.</p>
+        <p>The broth was the secret. Simmered for hours with pork blood, cinnamon, star anise, and a carefully guarded blend of spices, each bowl was intense and deeply flavourful — designed to be consumed in just a few bites, then refilled again and again.</p>
+      </div>
+    </div>
+
+    <div class="story-divider"><span>✦</span></div>
+
+    <div class="story-chapter">
+      <div class="story-chapter-num">Chapter Two</div>
+      <h2 class="story-chapter-title">A Recipe Carried Across the Ocean</h2>
+      <div class="story-chapter-text">
+        <p>Our founder grew up eating boat noodles in Thailand — not as a weekend treat, but as an everyday ritual. The broth was a constant: warm, grounding, and unmistakably home. When life brought them to New Zealand, that bowl came with them, first as a memory, then as a mission.</p>
+        <p>The idea was simple: Auckland deserved the real thing. Not an approximation, not a fusion, but the authentic flavour of Thai boat noodles — unchanged from the way it had been made for generations.</p>
+      </div>
+
+      <div class="story-quote">
+        <p>"We didn't want to create something new. We wanted to bring something real."</p>
+      </div>
+    </div>
+
+    <div class="story-img-block">
+      <img src="our1.png" alt="Traditional Thai canal market">
+    </div>
+
+    <div class="story-divider"><span>✦</span></div>
+
+    <div class="story-chapter">
+      <div class="story-chapter-num">Chapter Three</div>
+      <h2 class="story-chapter-title">Auckland's Original Thai Noodles</h2>
+      <div class="story-chapter-text">
+        <p>Pan Thai Noodles opened its first location on Dominion Road — Auckland's famous food street — and quickly became a destination for Thai food lovers and curious first-timers alike. Word spread through the community: this was something different. This was the real thing.</p>
+        <p>Today, with two locations across Auckland, the mission remains the same. Every bowl of broth is still made from scratch. The spice blend is still the same one carried over from Thailand. And every dish that leaves our kitchen is made with the same care and honesty that started it all.</p>
+        <p>Pan Thai is not just a restaurant. It is a tradition — kept alive, one bowl at a time.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;">
+      <button class="btn-loc" onclick="openBranchSelect()" style="display:inline-flex;margin:0 auto;">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Find a Table
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DISH LIGHTBOX ══════════════ -->
+<div class="lightbox" id="dishLightbox" onclick="closeLightboxBD(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img class="lightbox-img" id="lbImg" src="" alt="">
+    <div class="lightbox-body">
+      <div class="lightbox-name" id="lbName"></div>
+      <div class="lightbox-desc" id="lbDesc"></div>
+      <button class="lightbox-book" onclick="closeLightbox();openBranchSelect()">Reserve a Table →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MENU SHEET ══════════════ -->
+<div class="backdrop" id="menuBackdrop" onclick="closeMenuBD(event)">
+  <div class="msheet">
+    <button class="xbtn" onclick="closeMenu()">✕</button>
+    <div class="mshttitle" id="menuTitle">Menu</div>
+    <div class="mshtsub" id="menuSubtitle">PanThai</div>
+    <div class="mcat">Noodle Soups</div>
+    <div class="mitem"><div><b class="mname">Boat Noodle — Beef</b><div class="mdesc">Dark rich broth · rice vermicelli · morning glory</div></div><span class="mprice">$16</span></div>
+    <div class="mitem"><div><b class="mname">Boat Noodle — Pork</b><div class="mdesc">Clear broth · egg noodle · crispy pork belly</div></div><span class="mprice">$16</span></div>
+    <div class="mitem"><div><b class="mname">Tom Yum Noodle</b><div class="mdesc">Spicy-sour broth · prawn · mushroom</div></div><span class="mprice">$18</span></div>
+    <div class="mitem"><div><b class="mname">Yen Ta Fo</b><div class="mdesc">Pink fermented tofu broth · mixed seafood</div></div><span class="mprice">$18</span></div>
+    <div class="mcat">Dry Noodles</div>
+    <div class="mitem"><div><b class="mname">Pad Kee Mao</b><div class="mdesc">Wide rice noodle · holy basil · choice of protein</div></div><span class="mprice">$19</span></div>
+    <div class="mitem"><div><b class="mname">Pad See Ew</b><div class="mdesc">Soy-glazed flat noodle · Chinese broccoli · egg</div></div><span class="mprice">$19</span></div>
+    <div class="mcat">Sides &amp; Snacks</div>
+    <div class="mitem"><div><b class="mname">Spring Rolls (4 pcs)</b><div class="mdesc">Pork &amp; vegetable · plum sauce</div></div><span class="mprice">$9</span></div>
+    <div class="mitem"><div><b class="mname">Fish Cakes (5 pcs)</b><div class="mdesc">Red curry paste · cucumber relish</div></div><span class="mprice">$12</span></div>
+    <div class="mitem"><div><b class="mname">Deep Fried Pork Wonton</b><div class="mdesc">Crispy golden wonton · sweet chilli dip</div></div><span class="mprice">$13</span></div>
+    <div class="mcat">Drinks</div>
+    <div class="mitem"><div><b class="mname">Thai Iced Tea</b><div class="mdesc">Sweetened black tea · condensed milk</div></div><span class="mprice">$6</span></div>
+    <div class="mitem"><div><b class="mname">Thai Red Syrup Soda</b><div class="mdesc">Refreshing Thai classic</div></div><span class="mprice">$6</span></div>
+    <div class="mitem"><div><b class="mname">Young Coconut</b><div class="mdesc">Chilled, served in shell</div></div><span class="mprice">$7</span></div>
+  </div>
+</div>
+
+<!-- ══════════════ BOOKING SHEET ══════════════ -->
+<div class="bkdrop-c" id="bookBackdrop" onclick="closeBookBD(event)">
+  <div class="bsheet">
+    <button class="xbtn" onclick="closeBooking()">✕</button>
+    <div class="beye" id="bookBranch">Branch</div>
+    <div class="btitle">Reserve a Table</div>
+    <form id="bookingForm" onsubmit="submitBooking(event)">
+      <input type="hidden" name="access_key" value="3c376c6d-3aa5-4787-8431-7f0a005aec54">
+      <input type="hidden" name="subject" id="bookSubject" value="New Table Reservation">
+      <input type="hidden" name="branch" id="bookBranchField" value="">
+      <input class="bfield" type="text" name="name" placeholder="Your name" required>
+      <input class="bfield" type="tel" name="phone" placeholder="Phone number" required>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <input class="bfield" type="date" name="date" required>
+        <select class="bfield" name="time">
+          <option>11:30 AM</option><option>12:00 PM</option><option>12:30 PM</option>
+          <option>5:30 PM</option><option>6:00 PM</option><option>6:30 PM</option>
+          <option>7:00 PM</option><option>7:30 PM</option><option>8:00 PM</option>
+        </select>
+      </div>
+      <select class="bfield" name="guests">
+        <option>1 guest</option><option>2 guests</option><option>3 guests</option>
+        <option>4 guests</option><option>5 guests</option><option>6+ guests</option>
+      </select>
+      <button type="submit" class="bsub" id="bookSubmitBtn">Confirm Reservation</button>
+      <p class="bnote" id="bookNote">We'll call to confirm within 30 minutes.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ══════════════ LOCATION SELECT ══════════════ -->
+<div class="bkdrop-c" id="locBackdrop" onclick="closeLocBD(event)">
+  <div class="brsheet">
+    <button class="xbtn" onclick="closeLocSelect()">✕</button>
+    <div class="beye" style="justify-content:center">Locations</div>
+    <div class="btitle">Choose a Location</div>
+    <div class="brbtns">
+      <button class="brbtn" onclick="closeLocSelect();showPage('dominion')">Dominion Road</button>
+      <button class="brbtn" onclick="closeLocSelect();showPage('epsom')">Epsom</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ BRANCH SELECT ══════════════ -->
+<div class="bkdrop-c" id="branchBackdrop" onclick="closeBranchBD(event)">
+  <div class="brsheet">
+    <button class="xbtn" onclick="closeBranchSelect()">✕</button>
+    <div class="beye" style="justify-content:center">Find a Table</div>
+    <div class="btitle">Choose a Branch</div>
+    <div class="brbtns">
+      <button class="brbtn" onclick="closeBranchSelect();openBooking('Dominion Rd')">Dominion Road</button>
+      <button class="brbtn" onclick="closeBranchSelect();openBooking('Epsom')">Epsom</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="site-footer">
+  <div>
+    <div class="footer-col-title">Contact Us</div>
+    <div class="footer-contact-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <span><strong style="color:rgba(255,255,255,0.9)">Dominion Rd</strong><br>428 Dominion Road, Mt Eden, Auckland<br><span style="color:rgba(255,255,255,0.55);font-size:.78rem">☎ +64 9 623 0921</span></span>
+    </div>
+    <div class="footer-contact-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <span><strong style="color:rgba(255,255,255,0.9)">Epsom</strong><br>583 Manukau Rd, Epsom, Auckland<br><span style="color:rgba(255,255,255,0.55);font-size:.78rem">☎ +64 9 624 0199</span></span>
+    </div>
+  </div>
+  <div>
+    <div class="footer-col-title">Links</div>
+    <div class="footer-links-grid">
+      <span class="footer-link" onclick="navMenu()">Menu</span>
+      <span class="footer-link" onclick="showPage('dominion')">Dominion Rd</span>
+      <span class="footer-link" onclick="openLocSelect()">Order Ahead</span>
+      <span class="footer-link" onclick="showPage('epsom')">Epsom</span>
+    </div>
+  </div>
+</footer>
+<div class="footer-divider">© 2025 PanThai Noodles. All rights reserved.</div>
+
+<script>
+function toggleSigMore(){
+  const hidden = document.querySelectorAll('.sig-card.hidden-card');
+  const btn = document.getElementById('sigMoreBtn');
+  const isRevealed = hidden[0].classList.contains('revealed');
+  hidden.forEach(c => c.classList.toggle('revealed', !isRevealed));
+  btn.textContent = isRevealed ? 'See More ↓' : 'See Less ↑';
+}
+function openDish(card){
+  const img = card.querySelector('.sig-img-wrap img');
+  const name = card.querySelector('.sig-name').textContent;
+  const desc = card.querySelector('.sig-desc').innerHTML;
+  document.getElementById('lbImg').src = img.src;
+  document.getElementById('lbImg').alt = name;
+  document.getElementById('lbName').textContent = name;
+  document.getElementById('lbDesc').innerHTML = desc;
+  document.getElementById('dishLightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('dishLightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLightboxBD(e){if(e.target.id==='dishLightbox')closeLightbox();}
+
+function toggleMobileMenu(){
+  const menu=document.getElementById('mobileMenu');
+  const btn=document.getElementById('hamburgerBtn');
+  const bd=document.getElementById('mobileBackdrop');
+  const isOpen=menu.classList.contains('open');
+  menu.classList.toggle('open',!isOpen);
+  btn.classList.toggle('open',!isOpen);
+  bd.classList.toggle('open',!isOpen);
+  document.body.style.overflow=isOpen?'':'hidden';
+}
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburgerBtn').classList.remove('open');
+  document.getElementById('mobileBackdrop').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function navStory(){
+  if(document.getElementById('home').classList.contains('active')){
+    document.getElementById('our-story').scrollIntoView({behavior:'smooth'});
+  } else {
+    showPage('home');
+    setTimeout(()=>document.getElementById('our-story').scrollIntoView({behavior:'smooth'}),400);
+  }
+}
+function navMenu(){
+  if(document.getElementById('dominion').classList.contains('active')) openMenu('dominion');
+  else if(document.getElementById('epsom').classList.contains('active')) openMenu('epsom');
+  else openMenu('dominion');
+}
+function openLocSelect(){document.getElementById('locBackdrop').classList.add('open');document.body.style.overflow='hidden';}
+function closeLocSelect(){document.getElementById('locBackdrop').classList.remove('open');document.body.style.overflow='';}
+function closeLocBD(e){if(e.target.id==='locBackdrop')closeLocSelect();}
+
+// Nav background on scroll + ซ่อนยักษ์ทันทีที่ scroll ลง
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
+  const yak = document.querySelector('.hero-yak-left');
+  if(yak) yak.classList.toggle('hidden', window.scrollY > 80);
+});
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===id)});
+  // โลโก้และปุ่ม Home ใน nav แสดงเฉพาะหน้าที่ไม่ใช่ home
+  document.querySelector('.nlogo-nav').style.display = id==='home' ? 'none' : 'block';
+  document.getElementById('navHomeBtn').style.display = id==='home' ? 'none' : 'block';
+  // ยักษ์แสดงเฉพาะหน้า home
+  document.querySelector('.hero-yak-left').classList.toggle('hidden', id!=='home');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function openMenu(b){
+  document.getElementById('menuTitle').textContent=b==='dominion'?'Dominion Rd Menu':'Epsom Menu';
+  document.getElementById('menuSubtitle').textContent='PanThai · '+(b==='dominion'?'Dominion Road':'Epsom');
+  document.getElementById('menuBackdrop').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMenu(){document.getElementById('menuBackdrop').classList.remove('open');document.body.style.overflow='';}
+function closeMenuBD(e){if(e.target.id==='menuBackdrop')closeMenu();}
+function openBooking(b){
+  document.getElementById('bookBranch').textContent=b;
+  document.getElementById('bookBranchField').value=b;
+  document.getElementById('bookSubject').value='New Reservation — '+b;
+  document.getElementById('bookSubmitBtn').textContent='Confirm Reservation';
+  document.getElementById('bookNote').textContent="We'll call to confirm within 30 minutes.";
+  document.getElementById('bookNote').style.color='';
+  document.getElementById('bookingForm').reset();
+  document.getElementById('bookBranchField').value=b;
+  document.getElementById('bookSubject').value='New Reservation — '+b;
+  document.getElementById('bookBackdrop').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeBooking(){document.getElementById('bookBackdrop').classList.remove('open');document.body.style.overflow='';}
+function closeBookBD(e){if(e.target.id==='bookBackdrop')closeBooking();}
+function openBranchSelect(){document.getElementById('branchBackdrop').classList.add('open');document.body.style.overflow='hidden';}
+function closeBranchSelect(){document.getElementById('branchBackdrop').classList.remove('open');document.body.style.overflow='';}
+function closeBranchBD(e){if(e.target.id==='branchBackdrop')closeBranchSelect();}
+async function submitBooking(e){
+  e.preventDefault();
+  const btn=document.getElementById('bookSubmitBtn');
+  const note=document.getElementById('bookNote');
+  btn.textContent='Sending...';btn.disabled=true;
+  const formData=new FormData(e.target);
+  const res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:formData});
+  const data=await res.json();
+  if(data.success){
+    btn.textContent='✓ Reservation Sent!';
+    note.textContent="Thank you! We'll call to confirm shortly.";
+    note.style.color='var(--red)';
+    setTimeout(()=>closeBooking(),2500);
+  } else {
+    btn.textContent='Confirm Reservation';btn.disabled=false;
+    note.textContent='Something went wrong. Please call us directly.';
+  }
+}
+</script>
+</body>
+</html>
