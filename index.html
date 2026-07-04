@@ -1667,8 +1667,21 @@ async function submitBooking(e){
   e.preventDefault();
   const btn=document.getElementById('bookSubmitBtn');
   const note=document.getElementById('bookNote');
-  btn.textContent='Sending...';btn.disabled=true;
   const formData=new FormData(e.target);
+  // Both branches are closed on Tuesday evenings — block dinner bookings on Tuesdays
+  const dateVal=formData.get('date');
+  const timeVal=(formData.get('time')||'').trim();
+  if(dateVal){
+    const p=dateVal.split('-').map(Number);
+    const day=new Date(p[0],p[1]-1,p[2]).getDay(); // 0=Sun … 2=Tue
+    const isEvening=timeVal.includes('PM')&&!timeVal.startsWith('12');
+    if(day===2&&isEvening){
+      note.textContent="Sorry — both branches are closed on Tuesday evenings. Please choose a lunch time or another day.";
+      note.style.color='var(--red)';
+      return;
+    }
+  }
+  btn.textContent='Sending...';btn.disabled=true;
   const res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:formData});
   const data=await res.json();
   if(data.success){
