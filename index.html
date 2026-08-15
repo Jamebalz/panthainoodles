@@ -1476,6 +1476,7 @@ nav.scrolled{
         <input class="bfield" type="date" name="date" required>
         <select class="bfield" name="time">
           <option>11:30 AM</option><option>12:00 PM</option><option>12:30 PM</option>
+          <option>1:00 PM</option><option>1:30 PM</option><option>2:00 PM</option><option>2:30 PM</option><option>3:00 PM</option>
           <option>5:30 PM</option><option>6:00 PM</option><option>6:30 PM</option>
           <option>7:00 PM</option><option>7:30 PM</option><option>8:00 PM</option>
         </select>
@@ -1675,7 +1676,10 @@ async function submitBooking(e){
   if(dateVal){
     const p=dateVal.split('-').map(Number);
     const day=new Date(p[0],p[1]-1,p[2]).getDay(); // 0=Sun … 2=Tue … 3=Wed
-    const isEvening=timeVal.includes('PM')&&!timeVal.startsWith('12');
+    // Evening = 5:00 PM or later (dinner service); midday/afternoon slots count as lunch
+    const tm=timeVal.match(/^(\d+):\d+\s*(AM|PM)$/i);
+    const hr24=tm?(parseInt(tm[1],10)%12)+(/PM/i.test(tm[2])?12:0):0;
+    const isEvening=hr24>=17;
     // Both branches are closed on Tuesday evenings
     if(day===2&&isEvening){
       note.textContent="Sorry — both branches are closed on Tuesday evenings. Please choose a lunch time or another day.";
